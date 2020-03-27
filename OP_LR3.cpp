@@ -34,6 +34,11 @@ public:
 		lsize = 0;
 		head = nullptr;
 	}
+	~strList() {};
+	int getlsize() 
+	{
+		return lsize;
+	};
 	void push_back(string word,string data)
 	{
 		if (head==nullptr)
@@ -49,6 +54,7 @@ public:
 			}
 			current->pNext = new Node(word, data);
 		}
+		lsize++;
 	}
 };
 
@@ -68,6 +74,9 @@ int getHash(string a)
 int main()
 {
 	strList a;
+	cout<<a.getlsize();
 	a.push_back("Hash", "My work");
+	cout << a.getlsize();
 	a.push_back("look", "at this");
+	cout << a.getlsize();
 }

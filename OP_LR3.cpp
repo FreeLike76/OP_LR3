@@ -56,6 +56,19 @@ public:
 		}
 		lsize++;
 	}
+	string operator[](const string find)
+	{
+		Node* current = this->head;
+		while (current->pNext != nullptr)
+		{
+			if (current->word==find)
+			{
+				return current->data;
+			}
+			current = current->pNext;
+		}
+		return "Can't find required data! Maybe you misspelled the word or this vocabulary is missing that word. Please try again.\n";
+	}
 };
 
 int getHash(string a)
@@ -79,4 +92,5 @@ int main()
 	cout << a.getlsize();
 	a.push_back("look", "at this");
 	cout << a.getlsize();
+	cout << a["Hash"];
 }

@@ -39,8 +39,8 @@ public:
 	void clear();
 };
 
-int getHash(string a);
-
+unsigned long getHash(string a);
+void readVoc(strList* Voc, string path);
 
 
 int main()
@@ -131,7 +131,7 @@ void strList::clear()
 	}
 }
 
-int getHash(string a)
+unsigned long getHash(string a)
 {
 	unsigned long hash = 5381;
 	int c;

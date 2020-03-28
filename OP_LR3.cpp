@@ -35,6 +35,7 @@ public:
 	void push_back(string word, string data);
 	void pop_front();
 	string operator[](const string find);
+	void clear();
 };
 
 
@@ -74,6 +75,7 @@ strList::strList()
 
 strList::~strList()
 {
+	clear();
 }
 
 int strList::getlsize()
@@ -104,10 +106,14 @@ void strList::push_back(string word, string data)
 
 void strList::pop_front()
 {
-	Node* current = head;
-	head = head->pNext;
-	delete current;
-	lsize--;
+	if (lsize == 0) { cout << "List is clear, pop_front is excess\n"; }
+	else
+	{
+		Node* current = head;
+		head = head->pNext;
+		delete current;
+		lsize--;
+	}
 }
 
 string strList::operator[](const string find)
@@ -122,4 +128,13 @@ string strList::operator[](const string find)
 		current = current->pNext;
 	}
 	return "Can't find required data! Maybe you misspelled the word or this vocabulary is missing this word. Please try again.\n";
+}
+
+void strList::clear()
+{
+	while (lsize)
+	{
+		pop_front();
+		lsize--;
+	}
 }

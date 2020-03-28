@@ -45,9 +45,10 @@ void readVoc(strList* Voc, string path);
 
 int main()
 {
-	strList Voc[HSIZE];
+	strList* Voc=new strList [HSIZE];
 	readVoc(Voc, VOC_PATH);
 	string input;
+	cout << "Make sure \"Caps lock\" is enabled\nTo quit write \"!stop\"\n";
 	do
 	{
 		cout << "Enter word: ";
@@ -55,6 +56,8 @@ int main()
 		cout << Voc[getHash(input)].find_for(input);
 
 	} while (input != "!stop");
+	delete[] Voc;
+	return 0;
 }
 
 strList::strList()
@@ -159,12 +162,10 @@ void readVoc(strList* Voc, string path)
 		{
 			string word, data;
 			char ch;
-			do
+			while (voc.get(ch) && ch != ';')
 			{
-				voc.get(ch);
 				word += ch;
-
-			} while (ch != ';');
+			}
 			voc.get(ch);
 			do
 			{

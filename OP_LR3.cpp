@@ -57,12 +57,11 @@ int getHash(string a)
 int main()
 {
 	strList a;
-	cout<<a.getlsize();
+	cout<<a.getlsize()<<endl;
 	a.push_back("Hash", "My work");
-	cout << a.getlsize();
-	a.push_back("look", "at this");
-	cout << a.getlsize();
-	cout << a["Hash"];
+	cout << a.getlsize() << endl;
+	a.pop_front();
+	cout << a.getlsize() << endl;
 }
 
 strList::strList()
@@ -92,7 +91,7 @@ void strList::push_back(string word, string data)
 	}
 	else
 	{
-		Node* current = this->head;
+		Node* current = head;
 		while (current->pNext != nullptr)
 		{
 			current = current->pNext;
@@ -105,12 +104,16 @@ void strList::push_back(string word, string data)
 
 void strList::pop_front()
 {
+	Node* current = head;
+	head = head->pNext;
+	delete current;
+	lsize--;
 }
 
 string strList::operator[](const string find)
 {
-	Node* current = this->head;
-	while (current->pNext != nullptr)
+	Node* current = head;
+	while (current != nullptr)
 	{
 		if (current->word == find)
 		{

@@ -35,7 +35,7 @@ public:
 	int getlsize();
 	void push_back(string word, string data);
 	void pop_front();
-	string operator[](const string find);
+	string find_for(const string find);
 	void clear();
 };
 
@@ -47,6 +47,14 @@ int main()
 {
 	strList Voc[HSIZE];
 	readVoc(Voc, VOC_PATH);
+	string input;
+	do
+	{
+		cout << "Enter word: ";
+		cin >> input;
+		cout << Voc[getHash(input)].find_for(input);
+
+	} while (input != "!stop");
 }
 
 strList::strList()
@@ -100,7 +108,7 @@ void strList::pop_front()
 	}
 }
 
-string strList::operator[](const string find)
+string strList::find_for(const string find)
 {
 	Node* current = head;
 	while (current != nullptr)

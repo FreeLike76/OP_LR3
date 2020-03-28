@@ -6,6 +6,7 @@
 #include <fstream>
 #include <string>
 #define HSIZE 100000
+#define VOC_PATH "dict_processed.txt"
 
 
 using namespace std;
@@ -38,31 +39,14 @@ public:
 	void clear();
 };
 
+int getHash(string a);
 
 
-
-
-int getHash(string a)
-{
-	unsigned long hash = 5381;
-	int c;
-
-	for (int i = 0; i < a.length(); i++)
-	{
-		c = a[i];
-		hash = ((hash << 5) + hash) + c;
-	}
-	return hash%HSIZE;
-}
 
 int main()
 {
-	strList a;
-	cout<<a.getlsize()<<endl;
-	a.push_back("Hash", "My work");
-	cout << a.getlsize() << endl;
-	a.pop_front();
-	cout << a.getlsize() << endl;
+	strList Voc[HSIZE];
+	readVoc(Voc, VOC_PATH);
 }
 
 strList::strList()
@@ -136,5 +120,53 @@ void strList::clear()
 	{
 		pop_front();
 		lsize--;
+	}
+}
+
+int getHash(string a)
+{
+	unsigned long hash = 5381;
+	int c;
+
+	for (int i = 0; i < a.length(); i++)
+	{
+		c = a[i];
+		hash = ((hash << 5) + hash) + c;
+	}
+	return hash % HSIZE;
+}
+
+void readVoc(strList* Voc, string path)
+{
+	ifstream voc;
+	voc.open(path);
+	if (!voc.is_open())
+	{
+		cout << "Can't open word data file!\n";
+	}
+	else
+	{
+		cout << "File is loading, please wait...\n";
+		while (!voc.eof())
+		{
+			string word, data;
+			char ch;
+			do
+			{
+				voc.get(ch);
+				word += ch;
+
+			} while (ch != ';');
+			voc.get(ch);
+			do
+			{
+				voc.get(ch);
+				data += ch;
+
+			} while (ch != '\n' && !voc.eof());
+			Voc[getHash(word)].push_back(word, data);
+		}
+		voc.close();
+		cout << "File is loaded!\n";
 	}
 }
